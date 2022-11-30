@@ -11,10 +11,36 @@ const output = {
 
 };
 
+//Login 데이터(샘플) : DB 구축 및 연동 전 샘플 데이터로 가정.
+const users = {
+    id : ["worrimIT", "나개발", "김팀장"],
+    psword : ["1234", "1234", "123456"],
+};
+
+
 //index.js 에서 추가해준 router.post("/login", ctrl.process.login); 의 동작을 위해 obj 생성
+//이 함수 자체는 로그인 인증 과정 그 자체임.
 const process = {
     login : (req, res) => {
-        console.log(req.body);      //app.js에 body-parser 모듈 설치해줘야 req받은 데이터 파싱 가능.
+        const id = req.body.id,      //app.js에 body-parser 모듈 설치해줘야 req받은 데이터 파싱 가능.
+            psword = req.body.psword;
+
+            if (users.id.includes(id)) {
+                const idx = users.id.indexOf(id);
+
+                if(users.psword[idx] === psword) {
+                    return res.json({
+                        success : true,
+                    });
+                }
+            }
+
+            return res.json({
+                success : false,
+                msg : "로그인에 실패하였습니다."
+            });
+
+            
     },
 };
 

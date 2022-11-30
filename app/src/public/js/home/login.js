@@ -1,5 +1,5 @@
 "use strict";
-
+//front-end, 즉 html과 연결되어있는 js 파일.
 //login.ejs 파일과 연결 : login.ejs파일의 <head> 섹션에 <script src="/js/home/login.js"></script>
 
 const id = document.querySelector("#id"),
@@ -21,5 +21,6 @@ function login() {
             "Content-Type" : "application/json",
         },
         body: JSON.stringify(req),
-    });
+    }) .then((res) => res.json())
+        .then(console.log);   //res를 받아서 파라미터로 콘솔 로그에 전달.
 }
