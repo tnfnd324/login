@@ -1,26 +1,29 @@
 "use strict";
 
-const hello = (req, res) => {
-    res.render("home/index");
-    console.log("루트 페이지에 접근하였습니다.");
-}
+const output = {
+   home : (req, res) => {
+    res.render("./home/index");
+   },
 
-const login = (req, res) => {
-    res.render("home/login");
-    console.log("로그인 페이지에 접근하였습니다");
-}
+   login : (req, res) => {
+    res.render("./home/login");
+   },
 
-const logout = (req, res) => {
-    res.render("home/logout");
-    console.log("로그아웃 페이지에 접근하였습니다");
-}
+};
 
-//이 home.ctrl.js 파일을 외부에서도 이용하기 위해 {오브젝트 형태}로 모듈 내보내기
+//index.js 에서 추가해준 router.post("/login", ctrl.process.login); 의 동작을 위해 obj 생성
+const process = {
+    login : (req, res) => {
+        console.log(req.body);      //app.js에 body-parser 모듈 설치해줘야 req받은 데이터 파싱 가능.
+    },
+};
+
+
+// home.ctrl.js 파일을 외부에서도 이용하기 위해 {오브젝트 형태}로 모듈 내보내기
 
 module.exports = {
-    hello,
-    login,
-    logout,
+    output,
+    process,
 };
 
 //원래 오브젝트형은 { key : value } 로 이루어져있으나

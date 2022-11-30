@@ -8,6 +8,9 @@
 const express = require("express");     //require 명령어로 express라는 모듈 다운로드
 const app = express();                  //app이라는 변수 안에 express 실행
 const PORT = 3000;                      //포트 지정
+
+
+
 //라우팅
 const home = require("./src/routes/home");  //routes폴더 내부의 home 폴더에서 자바스크립트 파일 불러옴
 
@@ -15,8 +18,13 @@ const home = require("./src/routes/home");  //routes폴더 내부의 home 폴더
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
 
-app.use("/", home);      // use : 미들웨어를 등록해주는 메서드.
 app.use('/js', express.static(`${__dirname}/src/public/js`));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended : true}));
+//25: URL을 통해 전달되는 데이터에 한글, 공백 등과 같은 문자 인식 문제 해결해주는 설정.
+
+app.use("/", home);      // use : 미들웨어를 등록해주는 메서드.
 
 module.exports = app;
 
@@ -30,11 +38,6 @@ app.get("/login", (req, res) => {       //위와 같이 /login 디렉토리 생�
     console.log("로그인 페이지에 접근하였습니다.");
 });
 
-
-app.get("/logout", (req, res) => {
-    res.render("home/logout");
-    console.log("로그아웃 페이지에 접근하였습니다.");
-});
 
 
 //chapter 01 END
