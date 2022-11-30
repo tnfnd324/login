@@ -3,18 +3,18 @@
     "ejs": "^3.1.8",
     "express": "^4.18.2"
   },
-  "name": "login",    
+  "name": "login2",
   "version": "1.0.0",
   "main": "app.js",
   "bin": {
     "login": "bin/www.js"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./bin/www.js"
   },
   "author": "DongHyeon Lee",
   "license": "MIT",
+  "devDependencies": {},
   "description": ""
 }
