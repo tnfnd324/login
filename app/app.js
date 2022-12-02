@@ -40,11 +40,11 @@ app.get("/login", (req, res) => {       //위와 같이 /login 디렉토리 생�
 
 
 
-//chapter 01 END
+// 01 END
 
 
 
-// // //chapter 02. express 사용하지 않고 HTTP 로 서버 구동하기
+//  02. express 사용하지 않고 HTTP 로 서버 구동하기
 // // express에 비교해서 코드가 더럽고 비효율적임.
 
 // const http = require("http");
