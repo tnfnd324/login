@@ -18,6 +18,9 @@ const home = require("./src/routes/home");  //routes폴더 내부의 home 폴더
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
 
+app.engine('ejs', require('ejs').__express);
+
+
 app.use('/js', express.static(`${__dirname}/src/public/js`));
 
 app.use(express.json());
