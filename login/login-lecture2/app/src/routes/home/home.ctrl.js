@@ -20,6 +20,11 @@ const process = {
     const response = user.login();
     return res.json(response);
   },
+  register: (req, res) => {
+    const user = new User(req.body);
+    const response = user.register();   //register의 반환값을 받아서
+    return res.json(response);          //json 메서드를 통해서 클라이언트에게 응답
+  },
 };
 
 module.exports = {
