@@ -10,6 +10,8 @@ router.get("/", ctrl.output.home);            //5번줄에서 찾은 ctrl파일�
 
 router.get("/login", ctrl.output.login);
 
+router.get("/register", ctrl.output.register);  //register 경로로 get요청이 들어올 경우 ctrl.output.register 함수 실행
+
 router.post("/login", ctrl.process.login);      //실제로 로그인을 처리한다는 뜻의 obj 생성(process)
 
 

@@ -18,7 +18,6 @@ const home = require("./src/routes/home");  //routes폴더 내부의 home 폴더
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
 
-app.engine('ejs', require('ejs').__express);
 
 
 app.use('/js', express.static(`${__dirname}/src/public/js`));
@@ -28,6 +27,10 @@ app.use(express.urlencoded({ extended : true}));
 //25: URL을 통해 전달되는 데이터에 한글, 공백 등과 같은 문자 인식 문제 해결해주는 설정.
 
 app.use("/", home);      // use : 미들웨어를 등록해주는 메서드.
+
+
+
+
 
 module.exports = app;
 
@@ -40,6 +43,7 @@ app.get("/login", (req, res) => {       //위와 같이 /login 디렉토리 생�
     res.render("home/login");
     console.log("로그인 페이지에 접근하였습니다.");
 });
+
 
 
 
