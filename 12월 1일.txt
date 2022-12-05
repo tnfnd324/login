@@ -1,0 +1,143 @@
+<학습>
+-2022/11/30 : fetch 메서드, login req 받기 메서드 구현
+
+API : 서버-클라이언트간 통신 규약
+
+REST : 사이트 구성 원리 (어떻게 구성 해야하는가) : 자원의 표현을 가지고 상태를 전달한다.
+Restful API : REST API 메시지를 읽는 것 만으로도 메시지가 의도하는 바를 파악할 수 있도록 코딩.
+->기본적으로 HTTP 프로토콜을 사용하여 클라-서버 간 요청/응답.
+->HTTP 인프라를 사용하기때문에 별도의 인프라 구축이 필요없음.
+->클라이언트와 서버가 독립적으로 운여 가능.(서로 할 일만 하면 됨)
+19강)
+
+HTTP 메서드 : GET(조회), POST(생성), PUT(수정), DELETE(삭제), PATCH : 모든 상태(동작)은 메서드로!
+-> PUT / PATCH 차이점 : PUT은 전체 내용 갱신 위주, 파일 전송 가능, 요청된 자원 수정.
+PATCH는 자원의 일부를 교체하기위해 사용
+
+ex) GET /sports/soccer/players/11/delete (x)
+    DELETE /sports/soccer/players/11      (o)
+
+login.js에 fetch로 서버에 전달할 방식 코딩.
+이후에는 index.js에 서버측에서 데이터를 받아서 수정할수 있는 API를 만들어줘야함.
+
+로그인 사용자 인증 원시적 코드 생성 및 리팩토링 구상
+
+res.json()의 반환값은 Promise 형태. 기본 res의 반환값은 Response 스트림.
+.json() 메서드를 통해 Response 스트림을 읽을 수 있음.
+Response는 데이터가 모두 받아진 상태가 아님. .json()메서드로 Response 스트림을 가져와 완료시까지 읽어들임.
+다 읽어지면 body의 텍스트를 Promise 형태로 변경 후 반환.
+
+Promise : res.json() 메서드의 반환형태인 promise형 데이터는 .then 키워드로 접근 가능.
+
+.then 구절 밑에 성공이면 어떻게 처리할지 (페이지 이동) 로직 구현. (location.href ="" , alert(res.msg);
++
+<Trouble Shooting>
+- 2022/11/30 
+1. app.js 파일에서 app.use('/js', express.static(`${__dirname}/src/public/js`));  <- 라인 추가, 웹에서 public/js/home/login.js 파일 못찾던 에러 해결됨.
+결과 : Refused to execute script, strict MIME type checking is enabled? 에러 해결
+
+2. defer 키워드 :  login.ejs 파일에서 <script src="" defer></script> : 컴파일시 처리 순서 관련 (async 옵션 반대)
+
+3. body-parsing 키워드는 최근 업데이트에서 express에 합쳐졌음. body-parsing 포함하여 코딩할 경우 undefined error 송출.
+
+
+
+
+<JavaScript>
+
+this > 요소 자기 자신을 가리키는 키워드
+
+get -> 가져오기
+set -> 속성변경
+
+setAttribute("어떤속성변경?", "뭘로변경?") -> 속성변경 (동적인 속성 변경)
+
+document.getElementById("ID").onsmouseover = function() { }
+document.getElementById("ID").onsmouseout = function() { }
+
+package.json 파일 바로 생성 명령어 : npm init -y
+->package.json : npmjs.com에 배포 옵션 관련 명령어.
+
+<package.json
+{
+  "dependencies": {		//의존하고 있는 패키지(모듈)
+    "ejs": "^3.1.8",
+    "express": "^4.18.2"
+  },
+  "name": "login",    	//npmjs.com에 올릴 패키지(프로젝트) 이름
+  "version": "1.0.0",		//배포될 버젼
+  "main": "app.js",		//패키지의 메인 모듈
+  "bin": {			//실행 파일
+    "login": "bin/www.js"
+  },
+  "devDependencies": {},	//개발을 할때만 필요한것(테스트도구 ...)
+  "scripts": {
+    "start": "node .bin/www.js", 	//start 명령 입력 시 node .bin/www.js 찾아가서 실행(단축키 같은거임)
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""		//SW설명 : 검색가능
+}
+
+
+
+
+
+<CSS>
+
+애니메이션 : @keyframes example { from{ 시작할때 어떤 상태인지 }  to{ 끝날때 어떤 상태인지 } };
+->opacity : 투명도 (0~1)
+<애니메이션 사용 예시>
+
+div.부모태그아이디 > 대상자식 {
+	animation-name: example;		//위에 @keyframes example로 선언된 애니메이션
+	animation-delay: 3s;
+}
+
+<html>
+input*2 + Tab  : input 상자 두개 생성
+<input type="text" placeholder="ID"> : placeholder : 텍스트 입력 상자 안에 힌트메시지 표시
+
+- 웹의 뷰 단에서 뷰를 처리하는 엔진 앱 세팅
+app.set("views", "./views");	<-두번째 파라미터: 뷰를 관리할 파일들이 담긴 폴더(디렉토리)
+app.set("view engine", "ejs");	<-view engine은 ejs를 사용한다!
+
+- 뷰 엔진 사용했을때 페이지 라우팅 방법
+
+app.get("/", (req, res) => {
+	res.render("이동할 ejs파일의 경로");		<-앱 세팅 (app.set) 에서 최상위 경로 설정된곳 확인하기
+});
+
+-ejs 실행 안될때
+
+IDE에서 콘솔 창에 npm install ejs -s
+
+
+
+
+
+
+<Github> 
+node_modules는 Git에 기본적으로 같이 올리지 않음.
+필요에 의해 소스 받은 사용자가 터미널에 npm install 명령어로 다운로드하면 종속 기능 다 설치됨.
+package-lock.json : 더 정확한 버전 관리
+
+-Github 사용법
+1. 터미널에 git init 입력하여 .git 파일 생성
+2. git remote 사용하여 지금 작업중인 파일이 github online repository 가리키게 해야함.
+
+
+
+
+
+
+
+<npm 관련>
+npm install ejs --save
+npm 명령어중 --save 는
+설치된 node 모듈을 pakage.json 파일 내의 디펜던시 목록에 추가 하게 하는 옵션이다.
+그리고 만약 프로젝트 폴더에 package.json 이 파일이 없다
+프로젝트 등록? 뭐 그게 안된거다
+방법은 해당 프로젝트 폴더로 들어가서
+npm init 라는 명령어를 실행시켜
