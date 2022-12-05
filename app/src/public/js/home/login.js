@@ -18,10 +18,11 @@ function login() {
     fetch("/login", {
         method: "POST",
         headers: {
-            "Content-Type" : "application/json",
+            "Content-Type" : "application/json", 
         },
         body: JSON.stringify(req),
-    }) .then((res) => res.json())   //res를 받아서 파라미터로 콘솔 로그에 전달.
+    }) 
+        .then((res) => res.json())   //res를 받아서 파라미터로 콘솔 로그에 전달.
         .then((res) => {
             if (res.success) {
                 location.href = "/";
@@ -33,3 +34,5 @@ function login() {
             console.error(new Error("로그인 중 에러 발생"));
         });
 }
+
+//18th
