@@ -3,6 +3,7 @@
 const db = require("../config/db");
 
 class UserStorage {
+  static getUsers(isAll, ...fields) {}
 
   static getUserInfo(id) {
     return new Promise((resolve, reject) => {
