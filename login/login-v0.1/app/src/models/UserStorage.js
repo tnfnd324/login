@@ -3,8 +3,6 @@
 const db = require("../config/db");
 
 class UserStorage {
-  static getUsers(isAll, ...fields) {}
-
   static getUserInfo(id) {
     return new Promise((resolve, reject) => {
       const query = "SELECT * FROM users WHERE id = ?;";
